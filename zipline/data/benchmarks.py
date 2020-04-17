@@ -15,6 +15,10 @@
 import pandas as pd
 import requests
 
+from os import getenv
+
+IEX_TOKEN = getenv('IEX_TOKEN')
+
 
 def get_benchmark_returns(symbol):
     """
@@ -30,7 +34,8 @@ def get_benchmark_returns(symbol):
     get up to 5 years worth of data.
     """
     r = requests.get(
-        'https://api.iextrading.com/1.0/stock/{}/chart/5y'.format(symbol)
+        "https://cloud.iexapis.com/stable/stock/{}/chart/5y?chartCloseOnly=True&token={}".format(
+            symbol, IEX_TOKEN)
     )
     data = r.json()
 
