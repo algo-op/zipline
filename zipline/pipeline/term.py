@@ -203,7 +203,8 @@ class Term(with_metaclass(ABCMeta, object)):
         """
         pass
 
-    @expect_types(key=Asset)
+    # This breaks pylivetrader for some of the better built in pipeline terms
+    # @expect_types(key=Asset)
     def __getitem__(self, key):
         if isinstance(self, LoadableTerm):
             raise NonSliceableTerm(term=self)
