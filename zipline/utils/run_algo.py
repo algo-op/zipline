@@ -177,6 +177,8 @@ def _run(handle_data,
         def choose_loader(column):
             if column in USEquityPricing.columns:
                 return pipeline_loader
+            elif not getattr(column.dataset, 'get_loader', None) is None:
+                return column.dataset.get_loader()
             raise ValueError(
                 "No PipelineLoader registered for column %s." % column
             )
